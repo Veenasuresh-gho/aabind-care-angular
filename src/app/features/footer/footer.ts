@@ -37,7 +37,7 @@ export class Footer {
   readonly currentYear = new Date().getFullYear();
   readonly lastUpdated = this.getBuildTimestamp();
 
-  readonly logo = 'assets/logo.svg';
+  readonly logo = 'assets/aabind-icon.png';
   readonly tagline = 'Empowering your healthcare journey with innovative solutions.';
 
 readonly socialLinks: SocialLink[] = [
@@ -91,15 +91,15 @@ readonly socialLinks: SocialLink[] = [
 
   readonly storeBadges: StoreBadge[] = [
     {
-      qr: '/qr-code/play-store.svg',
+      qr: '/assets/aabind-playstore-qr.png',
       button: 'assets/playstore.svg',
-      link: 'https://play.google.com/store/apps/details?id=prx.care.patient_journey',
+      link: 'https://play.google.com/store/apps/details?id=com.aarogyam.aabind',
       label: 'Play Store',
     },
     {
-      qr: '/qr-code/app-store.svg',
+      qr: '/assets/aabind-appstore-qr.png',
       button: 'assets/appstore.svg',
-      link: 'https://apps.apple.com/in/app/prx-care/id6739527531',
+      link: 'https://apps.apple.com/in/app/aarogyam-by-aabind/id6780435426',
       label: 'App Store',
     },
   ];

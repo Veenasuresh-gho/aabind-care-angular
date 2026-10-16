@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './app-download-section.html',
 })
 export class AppDownloadSection {
-  appStoreUrl = 'https://apps.apple.com/in/app/prx-care/id6739527531';
+  appStoreUrl = 'https://apps.apple.com/in/app/aarogyam-by-aabind/id6780435426';
 
-  playStoreUrl = 'https://play.google.com/store/apps/details?id=prx.care.patient_journey';
+  playStoreUrl = 'https://play.google.com/store/apps/details?id=com.aarogyam.aabind';
 }
