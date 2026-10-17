@@ -43,18 +43,23 @@ export class Footer {
 readonly socialLinks: SocialLink[] = [
   {
     icon: 'business',
-    link: 'https://www.linkedin.com/company/prx-care',
+    link: 'https://in.linkedin.com/company/aabind-hospital',
     label: 'LinkedIn',
   },
   {
     icon: 'facebook',
-    link: 'https://www.facebook.com/people/PRxcare/61560169178371/',
+    link: 'http://facebook.com/p/Aabind-Hospital-61561673190197/',
     label: 'Facebook',
   },
   {
     icon: 'photo_camera',
-    link: 'https://www.instagram.com/prx.care?stkn=MW9zZGk3ODVwcnhnNg==',
+    link: 'https://www.instagram.com/aabind_hospital/?hl=en',
     label: 'Instagram',
+  },
+  {
+    icon: 'smart_display',
+    link: 'https://www.youtube.com/@Aabindhospitalklgd',
+    label: 'YouTube',
   },
 ];
 
@@ -68,25 +73,25 @@ readonly socialLinks: SocialLink[] = [
         { label: 'Shipping Policy', link: '/shipping-policy' },
         { label: 'Cancellation Policy', link: '/cancellation-policy' },
         { label: 'Terms & Conditions', link: '/terms-and-conditions' },
-        { label: 'Careers', link: '/careers' },
+        // { label: 'Careers', link: '/careers' },
       ],
     },
     {
       title: 'Services',
       links: [{ label: 'Book Appointment', link: '/schedule-appointment' }],
     },
-    {
-      title: 'Ayushman Bharath Digital Mission (ABDM)',
-      links: [
-        { label: 'View All ABDM Services', link: '/ayushman-bharath-digital-mission' },
-        {
-          label: 'ABDM Website',
-          link: 'https://abdm.gov.in/',
-          external: true,
-        },
-      ],
+    // {
+    //   title: 'Ayushman Bharath Digital Mission (ABDM)',
+    //   links: [
+    //     { label: 'View All ABDM Services', link: '/ayushman-bharath-digital-mission' },
+    //     {
+    //       label: 'ABDM Website',
+    //       link: 'https://abdm.gov.in/',
+    //       external: true,
+    //     },
+    //   ],
 
-    },
+    // },
   ];
 
   readonly storeBadges: StoreBadge[] = [
