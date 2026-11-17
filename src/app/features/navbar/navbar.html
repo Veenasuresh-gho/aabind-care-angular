@@ -16,6 +16,11 @@
       <div class="relative">
         <app-notification-popover />
       </div>
+      @if (isAuthenticated()) {
+      <div>
+        <app-message-center></app-message-center>
+      </div>
+    }
 
       @if (isAuthenticated()) {
 
