@@ -1,0 +1,232 @@
+
+<div class="message-panel">
+
+  @if (!selectedChat) {
+
+    <div class="message-search">
+      <mat-icon>search</mat-icon>
+      <input
+        type="text"
+        placeholder="Search doctors..."
+        [(ngModel)]="searchText">
+    </div>
+
+    @if (loading) {
+
+      <div class="empty-messages">
+        <mat-icon>hourglass_empty</mat-icon>
+        <p>Loading messages...</p>
+      </div>
+
+    } @else {
+
+      <div class="message-list">
+
+        @for (item of filteredMessages; track item.id) {
+
+          <div
+            class="message-item"
+            [class.unread]="item.unread > 0"
+            (click)="openChat(item)">
+
+            <div class="patient-avatar">
+
+              @if (item.image) {
+                <img [src]="item.image" [alt]="item.name">
+              } @else {
+                {{ item.name?.charAt(0) || '?' }}
+              }
+
+            </div>
+
+            <div class="message-content">
+
+              <div class="message-top">
+                <h4>{{ item.name }}</h4>
+                <span class="message-time">{{ item.time }}</span>
+              </div>
+
+              <div class="message-bottom">
+
+                <p>
+                  @if (item.isSentByMe == 1) {
+                    <span class="message-prefix">You: </span>
+                  }
+                  {{ item.message }}
+                </p>
+
+                @if (item.unread > 0) {
+                  <span class="message-count">
+                    {{ item.unread }}
+                  </span>
+                }
+
+              </div>
+
+            </div>
+
+          </div>
+
+        } @empty {
+
+          <div class="empty-messages">
+            <mat-icon>chat_bubble_outline</mat-icon>
+            <p>No doctor messages found</p>
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+    <div class="message-footer">
+      Doctor Messages
+    </div>
+
+  } @else {
+
+    <div class="chat-header">
+
+      <button
+        type="button"
+        class="back-btn"
+        (click)="backToMessages()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <div class="patient-avatar">
+
+        @if (selectedChat.image) {
+          <img
+            [src]="selectedChat.image"
+            [alt]="selectedChat.name">
+        } @else {
+          {{ selectedChat.name?.charAt(0) || '?' }}
+        }
+
+      </div>
+
+      <div class="chat-patient-info">
+        <h3>{{ selectedChat.name }}</h3>
+        <span>Doctor</span>
+      </div>
+
+    </div>
+
+    <div class="chat-messages">
+
+      @if (chatLoading) {
+
+        <div class="empty-messages">
+          <mat-icon>hourglass_empty</mat-icon>
+          <p>Loading conversation...</p>
+        </div>
+
+      } @else {
+
+        @for (item of selectedChat.messages; track item.id) {
+
+          <div
+            class="chat-message-row"
+            [class.sent]="item.sender === 'patient'">
+
+            <div class="chat-bubble">
+
+              <div class="chat-message-content">
+                <p>{{ item.text }}</p>
+              </div>
+
+              <div class="chat-message-footer">
+
+                <span class="message-timestamp">
+                  {{ item.time }}
+                </span>
+
+                @if (canDeleteMessage(item)) {
+
+                  @if (confirmDeleteMessageId === item.id) {
+
+                    <!-- <div class="delete-confirm">
+
+                      <span>Delete?</span>
+
+                      <button
+                        type="button"
+                        class="confirm-delete-btn"
+                        [disabled]="deletingMessageId === item.id"
+                        (click)="deleteMessage(item, $event)">
+                        {{ deletingMessageId === item.id ? 'Deleting...' : 'Yes' }}
+                      </button>
+
+                      <button
+                        type="button"
+                        class="cancel-delete-btn"
+                        [disabled]="deletingMessageId === item.id"
+                        (click)="cancelDeleteMessage($event)">
+                        No
+                      </button>
+
+                    </div> -->
+
+                  } @else {
+
+                    <!-- <button
+                      type="button"
+                      class="delete-message-btn"
+                      title="Delete message"
+                      aria-label="Delete message"
+                      (click)="requestDeleteMessage(item, $event)">
+                      <mat-icon>delete_outline</mat-icon>
+                    </button> -->
+
+                  }
+
+                }
+
+              </div>
+
+            </div>
+
+          </div>
+
+        } @empty {
+
+          <div class="empty-messages">
+            <mat-icon>chat_bubble_outline</mat-icon>
+            <p>No messages yet</p>
+          </div>
+
+        }
+
+      }
+
+    </div>
+
+    <div class="chat-input-area">
+
+      <input
+        type="text"
+        placeholder="Type your message..."
+        [(ngModel)]="newMessage"
+        (keydown.enter)="sendMessage()">
+
+      <button
+        type="button"
+        class="send-btn"
+        [disabled]="!newMessage.trim() || chatLoading || sending"
+        (click)="sendMessage()">
+
+        @if (sending) {
+          <mat-icon>hourglass_empty</mat-icon>
+        } @else {
+          <mat-icon>send</mat-icon>
+        }
+
+      </button>
+
+    </div>
+
+  }
+
+</div>
