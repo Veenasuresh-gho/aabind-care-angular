@@ -1,5 +1,5 @@
 <div class="overflow-hidden rounded-lg border border-border bg-white
-         transition-shadow duration-200 hover:shadow-md">
+         transition-shadow duration-200 hover:shadow-md my-2">
     <div class="p-5 md:p-6">
         <!-- Status -->
         <div class="flex flex-wrap items-center justify-between gap-2">
@@ -129,7 +129,12 @@
             <!-- Buttons -->
             <div class="flex w-full flex-col gap-2
                sm:w-auto sm:flex-row">
-                <!-- View More -->
+                @if (canMessage && appointment?.DoctorID) {
+                <app-button variant="outline" (click)="openDoctorMessage()">
+                    Message
+                </app-button>
+                }
+
                 <app-button variant="outline" (click)="handleViewClick()">
                     View more
                 </app-button>
@@ -144,3 +149,16 @@
 </div>
 <app-cancel-appointment [open]="open" [appointmentId]="appointment?.ID?.toString()"
     (openChange)="handleDialogChange($event)" (refetch)="handleRefetch()" />
+
+@if (isMessage) {
+<div class="azure-blade" [class.open]="isMessage">
+    <div class="azure-header edit-header">
+        <mat-label>Message</mat-label>
+        <mat-icon (click)="isMessage = false">close</mat-icon>
+    </div>
+    <div class="blade-content">
+        <app-message [doctorid]="messageDoctorID" [doctorname]="messageDoctorName">
+        </app-message>
+    </div>
+</div>
+}

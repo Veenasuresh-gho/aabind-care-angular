@@ -11,9 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { CancelAppointment } from '../../../../components/cancel-appointment/cancel-appointment';
 import { Button } from '../../../../components/button/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MessageComponent } from '../../../../features/dashboard/components/message/message';
 
 export interface Appointment {
   ID: string | number;
+  DoctorID?: number;
   ApptStatus?: string;
   PatientInfo?: string;
   AppointmentTime?: string;
@@ -35,17 +38,21 @@ export interface Appointment {
   imports: [
     MatIconModule,
     CancelAppointment,
-    Button
+    MatFormFieldModule,
+    Button,
+    MessageComponent
   ],
   templateUrl: './appointment-details-card.html',
+  styleUrl: './appointment-details-card.css',
 })
 export class AppointmentDetailsCard {
   private readonly router = inject(Router);
 
   @Input({ required: true }) appointment!: Appointment;
-
   @Output() refetch = new EventEmitter<void>();
-
+  messageDoctorID = 0;
+  messageDoctorName = ''
+  isMessage = false;
   open = false;
 
   get isCancelled(): boolean {
@@ -116,5 +123,23 @@ export class AppointmentDetailsCard {
 
   handleRefetch(): void {
     this.refetch.emit();
+  }
+
+
+
+  get canMessage(): boolean {
+    const status = this.appointment?.ApptStatus?.trim().toLowerCase();
+
+    return ['in-progress', 'completed', 'checked in'].includes(status ?? '');
+  }
+
+  openDoctorMessage(): void {
+    if (!this.appointment?.DoctorID) {
+      return;
+    }
+
+    this.messageDoctorID = this.appointment.DoctorID;
+    this.messageDoctorName = this.appointment.Doctor ?? '';
+    this.isMessage = true;
   }
 }
