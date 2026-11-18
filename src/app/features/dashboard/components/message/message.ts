@@ -312,6 +312,7 @@ export class MessageComponent implements OnInit, OnChanges {
     this.tv.push({ T: 'c1', V: 'DOCTOR' });
     this.tv.push({ T: 'c2', V: String(this.selectedChat.id) });
     this.tv.push({ T: 'c3', V: text });
+    this.tv.push({ T: 'c4', V: 'Text' });
     this.tv.push({ T: 'c10', V: '28' });
 
     this.srv.getdata('assist', this.tv).subscribe({
