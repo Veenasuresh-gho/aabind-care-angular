@@ -315,3 +315,86 @@
     }
 
 }
+/* Message Side Panel */
+
+.azure-blade {
+  position: fixed;
+  top: 70px;
+  right: 0;
+  width: 550px;
+  max-width: 100vw;
+  height: calc(100vh - 64px);
+  max-height: calc(100vh - 64px);
+  background: #fff;
+  z-index: 5001;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease,
+    visibility 0s linear 0.35s;
+  will-change: transform, opacity;
+}
+
+.azure-blade.open {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease,
+    visibility 0s;
+}
+
+.azure-blade .azure-header {
+  min-height: 60px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #D5DDEB;
+  flex-shrink: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.azure-blade .azure-header mat-icon {
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.azure-blade .azure-header mat-icon:hover {
+  color: #3c5182;
+  transform: rotate(90deg);
+}
+
+.azure-blade .blade-content {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.azure-blade .blade-content app-message {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .azure-blade {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .azure-blade,
+  .azure-blade.open {
+    transition: none;
+  }
+}

@@ -1,7 +1,7 @@
 
 <div class="message-panel">
 
-  @if (!selectedChat) {
+  @if (!doctorid && !selectedChat) {
 
     <div class="message-search">
       <mat-icon>search</mat-icon>
@@ -84,16 +84,20 @@
       Doctor Messages
     </div>
 
-  } @else {
+  }
+
+  @if (selectedChat) {
 
     <div class="chat-header">
 
-      <button
-        type="button"
-        class="back-btn"
-        (click)="backToMessages()">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
+      @if (!doctorid) {
+        <button
+          type="button"
+          class="back-btn"
+          (click)="backToMessages()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      }
 
       <div class="patient-avatar">
 
@@ -147,38 +151,11 @@
 
                   @if (confirmDeleteMessageId === item.id) {
 
-                    <!-- <div class="delete-confirm">
-
-                      <span>Delete?</span>
-
-                      <button
-                        type="button"
-                        class="confirm-delete-btn"
-                        [disabled]="deletingMessageId === item.id"
-                        (click)="deleteMessage(item, $event)">
-                        {{ deletingMessageId === item.id ? 'Deleting...' : 'Yes' }}
-                      </button>
-
-                      <button
-                        type="button"
-                        class="cancel-delete-btn"
-                        [disabled]="deletingMessageId === item.id"
-                        (click)="cancelDeleteMessage($event)">
-                        No
-                      </button>
-
-                    </div> -->
+                    <!-- Delete confirmation can be added here -->
 
                   } @else {
 
-                    <!-- <button
-                      type="button"
-                      class="delete-message-btn"
-                      title="Delete message"
-                      aria-label="Delete message"
-                      (click)="requestDeleteMessage(item, $event)">
-                      <mat-icon>delete_outline</mat-icon>
-                    </button> -->
+                    <!-- Delete button can be added here -->
 
                   }
 

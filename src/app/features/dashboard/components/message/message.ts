@@ -3,7 +3,10 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
-  OnInit
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -21,10 +24,13 @@ import { ghoresult, tags } from '../../../../models/gho-model';
   templateUrl: './message.html',
   styleUrl: './message.css'
 })
-export class MessageComponent implements OnInit {
+export class MessageComponent implements OnInit, OnChanges {
 
   srv = inject(GHOService);
   private cdr = inject(ChangeDetectorRef);
+
+  @Input() doctorid: number | string | null = null;
+  @Input() doctorname = '';
 
   tv: tags[] = [];
   res: ghoresult = new ghoresult();
@@ -44,7 +50,49 @@ export class MessageComponent implements OnInit {
   private chatRequestId = 0;
 
   ngOnInit(): void {
-    this.get();
+    this.initializeMessaging();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes['doctorid'] && !changes['doctorid'].firstChange) {
+      this.initializeMessaging();
+    }
+
+    if (
+      changes['doctorname'] &&
+      this.selectedChat &&
+      this.doctorname
+    ) {
+      this.selectedChat.name = this.doctorname;
+      this.cdr.detectChanges();
+    }
+  }
+
+  // INITIALIZE MESSAGING
+  initializeMessaging(): void {
+
+    if (this.doctorid) {
+
+      const doctorChat = {
+        id: Number(this.doctorid),
+        contactType: 'DOCTOR',
+        name: this.doctorname || 'Doctor',
+        image: '',
+        messages: [],
+        unread: 0
+      };
+
+      this.openChat(doctorChat);
+
+    } else {
+
+      this.chatRequestId++;
+      this.selectedChat = null;
+      this.newMessage = '';
+      this.get();
+
+    }
   }
 
   // GET PATIENT CONVERSATIONS - MODE 29
@@ -195,6 +243,10 @@ export class MessageComponent implements OnInit {
   // BACK TO CONVERSATION LIST
   backToMessages(): void {
 
+    if (this.doctorid) {
+      return;
+    }
+
     this.chatRequestId++;
 
     this.selectedChat = null;
@@ -275,7 +327,10 @@ export class MessageComponent implements OnInit {
           const currentChat = this.selectedChat;
 
           this.openChat(currentChat);
-          this.get();
+
+          if (!this.doctorid) {
+            this.get();
+          }
 
         }
 
@@ -327,7 +382,6 @@ export class MessageComponent implements OnInit {
 
   // DELETE MESSAGE - MODE 32
   deleteMessage(item: any, event: MouseEvent): void {
-
     event.stopPropagation();
 
     if (
@@ -358,7 +412,10 @@ export class MessageComponent implements OnInit {
         if (r.Status == 1) {
 
           this.openChat(currentChat);
-          this.get();
+
+          if (!this.doctorid) {
+            this.get();
+          }
 
         }
 

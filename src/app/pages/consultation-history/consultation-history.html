@@ -142,6 +142,11 @@
                     <button (click)="viewDetails(item)" type="button">
                         View details
                     </button>
+                    @if (canMessage(item)) {
+                    <button type="button" class="message-btn" (click)="openDoctorMessage(item)">
+                        Message
+                    </button>
+                    }
                 </div>
             </div>
         </div>
@@ -153,9 +158,22 @@
     </div>
 </div>
 
-<app-consultation-summary-dialog
-    [open]="summaryDialogOpen"
-    [appointment]="selectedConsultation"
-    (openChange)="summaryDialogOpen = $event"
->
+<app-consultation-summary-dialog [open]="summaryDialogOpen" [appointment]="selectedConsultation"
+    (openChange)="summaryDialogOpen = $event">
 </app-consultation-summary-dialog>
+
+@if (isMessage) {
+  <div class="azure-blade" [class.open]="isMessage">
+    <div class="azure-header edit-header">
+      <mat-label>Message</mat-label>
+      <mat-icon (click)="isMessage = false">close</mat-icon>
+    </div>
+
+    <div class="blade-content">
+      <app-message
+        [doctorid]="messageDoctorID"
+        [doctorname]="messageDoctorName">
+      </app-message>
+    </div>
+  </div>
+}

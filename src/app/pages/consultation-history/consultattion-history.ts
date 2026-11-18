@@ -21,6 +21,7 @@ import { ghoresult, tags } from '../../models/gho-model';
 import { EmptyMessageComponent } from '../../components/empty-message/empty-message';
 import { ConsultationSummaryDialog } from './components/consultation-summary/consultation-summary-dialog';
 import { Router } from '@angular/router';
+import { MessageComponent } from '../../features/dashboard/components/message/message';
 
 
 @Component({
@@ -36,7 +37,8 @@ import { Router } from '@angular/router';
         MatMenuModule,
         MatProgressSpinnerModule,
         EmptyMessageComponent,
-        ConsultationSummaryDialog
+        ConsultationSummaryDialog,
+        MessageComponent
     ],
     templateUrl: './consultation-history.html',
     styleUrl: './consultation-history.css',
@@ -53,8 +55,34 @@ export class ConsultationHistoryComponent implements OnInit {
     sortBy: 'newest' | 'oldest' = 'newest';
     selectedConsultation: any = null;
     summaryDialogOpen = false;
+    messageDoctorID = 0;
+    messageDoctorName = '';
+    isMessage = false;
     private router = inject(Router);
     constructor(private cdr: ChangeDetectorRef) { }
+
+    canMessage(item: any): boolean {
+        const status = String(item.AppointmentStatus ?? '')
+            .trim()
+            .toLowerCase();
+
+        return [
+            'checked in',
+            'completed',
+            'in consultation'
+        ].includes(status);
+
+    }
+
+    openDoctorMessage(item: any): void {
+        if (!item?.DoctorID) {
+            return;
+        }
+
+        this.messageDoctorID = Number(item.DoctorID);
+        this.messageDoctorName = `${item.Title ?? ''} ${item.Doctor ?? ''}`.trim();
+        this.isMessage = true;
+    }
 
     ngOnInit(): void {
         this.getUserConsultationHistory();
@@ -179,5 +207,7 @@ export class ConsultationHistoryComponent implements OnInit {
             this.router.navigate(['/schedule-appointment', item.DoctorID]);
         }
     }
+
+
 
 }
