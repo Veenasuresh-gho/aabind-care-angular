@@ -86,14 +86,20 @@ export class MessageCenterComponent implements OnInit, OnDestroy {
     private viewContainerRef: ViewContainerRef
   ) { }
 
+  // ngOnInit(): void {
+
+  //   timer(0, this.pollingInterval).pipe(
+  //     filter(() => document.visibilityState === 'visible'),
+  //     exhaustMap(() => this.fetchNotifications()),
+  //     takeUntil(this.destroy$)
+  //   ).subscribe();
+
+  // }
+
   ngOnInit(): void {
-
-    timer(0, this.pollingInterval).pipe(
-      filter(() => document.visibilityState === 'visible'),
-      exhaustMap(() => this.fetchNotifications()),
-      takeUntil(this.destroy$)
-    ).subscribe();
-
+    this.fetchNotifications()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
   }
 
   private fetchNotifications() {

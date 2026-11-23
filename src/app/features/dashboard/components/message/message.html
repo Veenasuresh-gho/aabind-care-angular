@@ -1,8 +1,14 @@
 <div class="message-panel">
   @if (!doctorid && !selectedChat) {
-  <div class="message-search">
-    <mat-icon>search</mat-icon>
-    <input type="text" placeholder="Search doctors..." [(ngModel)]="searchText">
+  <div class="message-toolbar">
+    <div class="message-search">
+      <mat-icon>search</mat-icon>
+      <input type="text" placeholder="Search doctors..." [(ngModel)]="searchText">
+    </div>
+
+    <button type="button" class="refresh-btn" title="Refresh messages" [disabled]="loading" (click)="get()">
+      <mat-icon [class.spinning]="loading">refresh</mat-icon>
+    </button>
   </div>
   @if (loading) {
   <div class="empty-messages">
