@@ -18,6 +18,7 @@ import { Button } from '../../../../../components/button/button';
     Button,
   ],
   templateUrl: './appointment-card.html',
+  styleUrl: './appointment-card.css',
 })
 export class AppointmentCard {
   private readonly router = inject(Router);

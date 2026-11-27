@@ -1,0 +1,12 @@
+.appointment-spinner {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    animation: appointment-spin 0.8s linear infinite;
+}
+
+@keyframes appointment-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
