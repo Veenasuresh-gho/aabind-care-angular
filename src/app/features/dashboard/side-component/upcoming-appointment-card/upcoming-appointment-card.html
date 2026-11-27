@@ -44,16 +44,11 @@
     </div>
 </div>
 } @else if (appointment) {
-<!-- ================= ACTUAL CARD ================= -->
 <div class="overflow-hidden rounded-xl border border-border bg-white">
-    <!-- Card Content -->
     <div class="space-y-4 p-5">
-        <!-- Status -->
         <div class="flex flex-wrap items-center justify-between gap-2">
-            <!-- Appointment Status -->
-            <app-status-badge [status]="appointment.AppointmentStatus" />
-            <!-- Payment Status -->
-            @if (appointment.AppointmentStatus !== 'Cancelled') {
+            <app-status-badge [status]="appointment.ApptStatus" />
+            @if (appointment.ApptStatus !== 'Cancelled') {
             <span
                 class="inline-flex items-center gap-1.5 rounded-full bg-light-grey px-2.5 py-1 text-xs font-medium text-grey">
                 <span class="material-icons text-sm">
@@ -114,8 +109,7 @@
                     Date &amp; time
                 </p>
                 <p class="text-[14.5px] font-semibold text-black">
-                    {{ appointment.ApptDate || '—' }}
-                </p>
+                    {{ appointment.ApptDate | date:'dd MMM yyyy, h:mm a' }} </p>
             </div>
         </div>
         <!-- Meta Chips -->
@@ -153,7 +147,7 @@
                sm:w-auto" (click)="handleViewClick()">
             View Details
         </button>
-        @if (appointment.AppointmentStatus === 'Confirmed') {
+        @if (appointment.ApptStatus === 'Confirmed') {
         <button type="button" class="flex h-11 w-full items-center justify-center gap-2
                rounded-lg border border-red-200 bg-red-50 px-4
                text-sm font-semibold text-red-600

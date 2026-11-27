@@ -4,9 +4,11 @@ import {
   ChangeDetectionStrategy,
   signal,
   inject,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 
-import { NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage,DatePipe } from '@angular/common';
 
 import { StatusBadge } from '../../../../components/status-badge/status-badge';
 import { CancelAppointment } from '../../../../components/cancel-appointment/cancel-appointment';
@@ -19,11 +21,12 @@ import { Router } from '@angular/router';
     StatusBadge,
     NgOptimizedImage,
     CancelAppointment,
+    DatePipe
   ],
   templateUrl: './upcoming-appointment-card.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UpcomingAppointmentCard {
+export class UpcomingAppointmentCard implements OnChanges {
   private readonly router = inject(Router);
 
   @Input() appointment: any;
@@ -36,6 +39,12 @@ export class UpcomingAppointmentCard {
 
   get paymentStatus(): string {
     return this.appointment?.PayStatus?.trim()?.toLowerCase() || 'unknown';
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['appointment']) {
+      console.log('Appointment Data:', this.appointment);
+    }
   }
 
   handleViewClick(): void {
