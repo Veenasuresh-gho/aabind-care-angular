@@ -91,9 +91,6 @@ export class FileUploadService {
         }
     }
 
-    /**
-     * Complete file upload flow
-     */
     async handleFileUpload(
         id: string,
         userId: string,
@@ -114,14 +111,14 @@ export class FileUploadService {
                     T: 'dk1',
                     V: userId,
                 },
-                // {
-                //     T: 'dk2',
-                //     V: id,
-                // },
                 {
                     T: 'dk2',
-                    V: userId,
+                    V: id,
                 },
+                // {
+                //     T: 'dk2',
+                //     V: userId,
+                // },
                 {
                     T: 'c1',
                     V: documentTypeId,
