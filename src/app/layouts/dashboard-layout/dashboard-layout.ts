@@ -131,9 +131,10 @@ export class DashboardLayout implements OnInit {
     this.srv.getdata('care', tv).subscribe({
       next: (res) => {
         if (res.Status === 1) {
-          this.appointmentDetails = res.Data[1][0];
+          this.appointmentDetails = res.Data?.[1]?.[0] ?? null;
           this.advertisements = res.Data?.[3] ?? [];
         } else {
+          this.appointmentDetails = null;
           this.advertisements = [];
         }
         this.isLoading = false;
