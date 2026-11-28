@@ -8,6 +8,7 @@ export const environment = {
     baseUrl: 'https://ghoapps.com/AI/scan'
   },
   googleMapsApiKey: 'AIzaSyBVJlf7uveW3SMtwbytBoKhJluwxserCzA',
+  razorpay: 'rzp_live_Quse7Y745hnoAO',
   calculateDistanceUrl:
     'https://ghoapps.com/api/location/driving-distance'
 };

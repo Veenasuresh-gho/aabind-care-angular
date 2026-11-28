@@ -35,6 +35,7 @@ import { LabDetails } from './pages/find-lab/components/lab-details/lab-details'
 import { AppointmentDetails } from './pages/appointment-details/appointment-details';
 import { DetailsPage } from './pages/appointment-details/details-page/details-page';
 import { Bookings } from './pages/bookings/bookings';
+import { ExternalPayment } from './features/pay/external-payment/external-payment';
 import { WellnessCareComponent } from './pages/wellness-care/wellness-care';
 import { MentalHealth } from './pages/mental-health/mental-health';
 import { NutritionCare } from './pages/nutrition-care/nutrition-care';
@@ -150,6 +151,12 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'pay/external-payment/:id',
+        loadComponent: () =>
+            import('./features/pay/external-payment/external-payment')
+                .then(m => m.ExternalPayment)
+    },
+    {
         path: '',
         component: PublicLayout,
         children: [
@@ -189,13 +196,13 @@ export const routes: Routes = [
                 path: 'wellness',
                 component: WellnessCareComponent
             },
-             {
+            {
                 path: 'mental-health',
                 component: MentalHealth
             },
             {
-                path:'nutrition',
-                component:NutritionCare
+                path: 'nutrition',
+                component: NutritionCare
             },
             {
                 path: 'nutrition-scanner',
@@ -203,7 +210,7 @@ export const routes: Routes = [
             },
             {
                 path: 'nutrition/track-your-food',
-                component:ScannedFoodS
+                component: ScannedFoodS
             }
 
         ]

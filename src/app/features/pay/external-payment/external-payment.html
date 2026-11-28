@@ -1,0 +1,65 @@
+<div class="payment-page">
+    <main class="payment-main">
+        <div class="payment-wrapper">
+            @if (notification) {
+            <div class="payment-notification" [class.success]="notificationType === 'success'"
+                [class.error]="notificationType === 'error'">
+                <span>{{ notification }}</span>
+                <button type="button" (click)="closeNotification()">
+                    &times;
+                </button>
+            </div>
+            }
+            @if (isFetching || !externalPaymentRequestDetails) {
+            <section class="payment-card">
+                <div class="card-header">
+                    <div class="skeleton skeleton-title"></div>
+                </div>
+                <div class="card-content">
+                    <div class="patient-skeleton">
+                        <div class="skeleton skeleton-avatar"></div>
+                        <div class="skeleton-details">
+                            <div class="skeleton skeleton-name"></div>
+                            <div class="skeleton skeleton-subtitle"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton skeleton-line"></div>
+                    <div class="skeleton skeleton-line line-2"></div>
+                    <div class="skeleton skeleton-line line-3"></div>
+                    <div class="skeleton-total">
+                        <div class="skeleton skeleton-label"></div>
+                        <div class="skeleton skeleton-price"></div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="skeleton skeleton-button"></div>
+                </div>
+            </section>
+            } @else {
+            <section class="payment-card">
+                <div class="card-header">
+                    <h2>Payment Summary</h2>
+                </div>
+                <div class="card-content">
+                    <div class="payment-message" [innerHTML]="paymentMessage">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="pay-button" [disabled]="isGetPatientBillingLoading || isFetching"
+                        (click)="handlePayment()">
+                        @if (isGetPatientBillingLoading) {
+                        <span class="button-spinner"></span>
+                        Processing...
+                        } @else {
+                        Proceed to Payment
+                        }
+                    </button>
+                </div>
+            </section>
+            }
+            <div class="copyright">
+                Copyright PRX.care
+            </div>
+        </div>
+    </main>
+</div>
