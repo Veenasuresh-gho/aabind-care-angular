@@ -130,7 +130,7 @@ export class AppointmentDetailsCard {
   get canMessage(): boolean {
     const status = this.appointment?.ApptStatus?.trim().toLowerCase();
 
-    return ['in-progress', 'completed', 'checked in'].includes(status ?? '');
+    return ['in-progress', 'completed', 'checked in','confirmed'].includes(status ?? '');
   }
 
   openDoctorMessage(): void {

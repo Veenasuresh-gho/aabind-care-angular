@@ -115,10 +115,6 @@ export class FileUploadService {
                     T: 'dk2',
                     V: id,
                 },
-                // {
-                //     T: 'dk2',
-                //     V: userId,
-                // },
                 {
                     T: 'c1',
                     V: documentTypeId,

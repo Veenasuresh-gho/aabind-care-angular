@@ -382,63 +382,13 @@ export class MessageComponent implements OnInit, OnChanges {
   }
 
 
-  // uploadFile(messageType: 'File' | 'Audio' = 'File'): void {
-  //   if (
-  //     !this.selectedFile ||
-  //     !this.selectedChat ||
-  //     this.sending
-  //   ) {
-  //     return;
-  //   }
-  //   const file = this.selectedFile;
-  //   const userId = sessionStorage.getItem('id');
-  //   this.sending = true;
-  //   if (this.pendingFileMessageId) {
-  //     void this.uploadSelectedFile(this.pendingFileMessageId, file);
-  //     return;
-  //   }
-  //   this.tv = [];
-  //   this.tv.push({ T: 'dk1', V: 'PATIENT' });
-  //   this.tv.push({ T: 'c1', V: 'DOCTOR' });
-  //   this.tv.push({ T: 'c2', V: String(this.selectedChat.id) });
-  //   this.tv.push({ T: 'c3', V: '' });
-  //   this.tv.push({ T: 'c4', V: messageType });
-  //   this.tv.push({ T: 'c10', V: '28' });
-  //   this.srv.getdata('assist', this.tv).subscribe({
-  //     next: async (r) => {
-  //       if (r.Status == 1) {
-  //         const messageID = Number(r.Data?.[0]?.[0]?.MessageID);
-  //         if (!messageID) {
-  //           this.sending = false;
-  //           console.error('MessageID was not returned.');
-  //           return;
-  //         }
-  //         this.pendingFileMessageId = messageID;
-  //         await this.uploadSelectedFile(messageID, file);
-  //       } else {
-  //         this.sending = false;
-  //         console.warn(r.Info || 'Failed to create file message.');
-  //       }
-  //       this.cdr.detectChanges();
-  //     },
-  //     error: (err) => {
-  //       this.sending = false;
-  //       console.error('Failed to create file message:', err);
-  //       this.cdr.detectChanges();
-  //     }
-  //   });
-  // }
-
   uploadFile(messageType: 'File' | 'Audio' = 'File'): void {
     if (!this.selectedFile || !this.selectedChat || this.sending) {
       return;
     }
-
     const file = this.selectedFile;
     const userId = sessionStorage.getItem('id') || '';
-
     this.sending = true;
-
     if (this.pendingFileMessageId) {
       void this.uploadSelectedFile(this.pendingFileMessageId, file, userId);
       return;
@@ -480,40 +430,6 @@ export class MessageComponent implements OnInit, OnChanges {
     });
   }
 
-  // private async uploadSelectedFile(
-  //   messageID: number,
-  //   file: File
-  // ): Promise<void> {
-  //   this.uploadingFile = true;
-  //   try {
-  //     const success = await this.fileUploadService.handleFileUpload(
-  //       '',
-  //       String(messageID),
-  //       file,
-  //       '61'
-  //     );
-  //     if (success) {
-  //       this.pendingFileMessageId = null;
-  //       this.removeSelectedFile();
-  //       this.newMessage = '';
-  //       const currentChat = this.selectedChat;
-  //       this.openChat(currentChat);
-  //       if (!this.doctorid) {
-  //         this.get();
-  //       }
-  //     } else {
-  //       console.warn('File upload failed. Please try again.');
-  //     }
-
-  //   } catch (err: any) {
-  //     console.error('File upload failed:', err);
-  //   } finally {
-  //     this.uploadingFile = false;
-  //     this.sending = false;
-  //     this.cdr.detectChanges();
-  //   }
-  // }
-
 
   private async uploadSelectedFile(
     messageID: number,
@@ -524,7 +440,7 @@ export class MessageComponent implements OnInit, OnChanges {
 
     try {
       const success = await this.fileUploadService.handleFileUpload(
-         String(messageID),
+        String(messageID),
         userId,
         file,
         '61'
