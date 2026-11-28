@@ -3,7 +3,6 @@
   class="w-full min-w-[300px]"
 >
   <mat-label>{{ placeholder }}</mat-label>
-
   <mat-select
     [(ngModel)]="selectedCountryCode"
     (ngModelChange)="onCountryChange($event)"
@@ -12,7 +11,6 @@
     @for (country of countryList; track country.CountryID) {
       <mat-option [value]="country.CountryCode">
         +{{ country.CountryCode }}
-
         @if (selectedCountryCode !== country.CountryCode) {
           {{ country.CountryName }}
         }
