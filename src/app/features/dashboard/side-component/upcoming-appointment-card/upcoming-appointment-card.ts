@@ -43,7 +43,6 @@ export class UpcomingAppointmentCard implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['appointment']) {
-      console.log('Appointment Data:', this.appointment);
     }
   }
 

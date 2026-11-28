@@ -51,41 +51,41 @@ export class DashboardLayout implements OnInit {
     this.patientId = sessionStorage.getItem('id');
     this.getDashboardData();
     this.getPatientDetails();
-    this.getUpcomingAppointments();
+    // this.getUpcomingAppointments();
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  getUpcomingAppointments(): void {
-    const tv = [
-      {
-        T: 'dk1',
-        V: this.patientId ?? '',
-      },
-      {
-        T: 'c1',
-        V: '2',
-      },
-      {
-        T: 'c10',
-        V: '6',
-      },
-    ];
-    this.srv.getdata('care', tv).subscribe({
-      next: (res) => {
-        if (res.Status === 1) {
-          this.appointmentDetails = res.Data[0][0];
-          console.log(this.appointmentDetails,"dnhgg")
-          this.cdr.markForCheck();
-        }
-      },
-      error: (error) => {
-        console.error('Failed to get patient details:', error);
-      },
-    });
-  }
+  // getUpcomingAppointments(): void {
+  //   const tv = [
+  //     {
+  //       T: 'dk1',
+  //       V: this.patientId ?? '',
+  //     },
+  //     {
+  //       T: 'c1',
+  //       V: '2',
+  //     },
+  //     {
+  //       T: 'c10',
+  //       V: '6',
+  //     },
+  //   ];
+  //   this.srv.getdata('care', tv).subscribe({
+  //     next: (res) => {
+  //       if (res.Status === 1) {
+  //         this.appointmentDetails = res.Data[0][0];
+  //         console.log(this.appointmentDetails,"dnhgg")
+  //         this.cdr.markForCheck();
+  //       }
+  //     },
+  //     error: (error) => {
+  //       console.error('Failed to get patient details:', error);
+  //     },
+  //   });
+  // }
 
   getPatientDetails(): void {
     const tv = [
@@ -131,6 +131,7 @@ export class DashboardLayout implements OnInit {
     this.srv.getdata('care', tv).subscribe({
       next: (res) => {
         if (res.Status === 1) {
+          this.appointmentDetails = res.Data[1][0];
           this.advertisements = res.Data?.[3] ?? [];
         } else {
           this.advertisements = [];
